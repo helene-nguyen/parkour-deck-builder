@@ -1,0 +1,22 @@
+<%- include('./partials/head') %>
+ 
+ <!-- homemade css -->
+ <link rel="stylesheet" href="../css/style.css">
+
+<%- include('./partials/header') %>
+
+<div class="card-container">
+
+    <h1><%= card.name %> </h1>
+
+    <div class="card">
+        <a href="/card/<%= card.id %> "><!-- id -->
+          <img src="../visuals/<%= card.visual_name %>" alt="<%= card.name %> illustration">
+          <p class="cardName"><%= card.name %></p>
+        </a>
+        <a class="link--addCard card-detail" title="Ajouter au deck" href="/deck/add/<%= card.id %>">[ + ]</a>
+      </div>
+
+</div>
+
+<%- include('./partials/footer') %>
