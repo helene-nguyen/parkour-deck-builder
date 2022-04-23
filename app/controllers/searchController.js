@@ -14,6 +14,7 @@ const {
   getAllCards
 } = cardsDataMapper;
 
+
 //~controller
 const searchController = {
   //^display search page
@@ -50,8 +51,17 @@ const searchController = {
 
       element == 'undefined' ? cardsByElement = allCards : (element == 'null' ? cardsByElement = cardsISNULL : cardsByElement);
 
+      //also can do this :
+      // if(element === 'undefined') {
+      //   cardsByElement = allCards;
+      // }
+      //
+      // else if (element === 'null') {
+      //   cardsByElement = cardsISNULL
+      // }
+
       searchByElement.push(cardsByElement);
-      next();
+      next(); //can do res.redirect
       
     } catch (err) {
       errorController._500(err, req, res)

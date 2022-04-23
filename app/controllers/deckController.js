@@ -64,6 +64,7 @@ const deckController = {
     //^delete card
     async deleteCard(req, res) {
         const cards = req.session.deck || [];
+        
         const targetId = parseInt(req.params.id, 10)
         try {
             const deleteCard = cards.filter((elem) => {

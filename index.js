@@ -40,6 +40,7 @@ app.use(router);
 //~error
 app.use((errorController._404));
 
+//~launch app
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Running server on http://localhost:${PORT}`);
