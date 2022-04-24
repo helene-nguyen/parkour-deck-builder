@@ -23,10 +23,13 @@ const searchController = {
       const elements = await displayElementsOptions();
       const allCards = await getAllCards();
 
+      //? Test another way to write :
+      //? const [elements, allCards] = await Promise.all([ displayElementsOptions(), getAllCards()]);
+
       if (!req.session.searchBy) {
         req.session.searchBy = [allCards];
       }
-      
+
       const cards = req.session.searchBy;
 
       res.render('search', {
@@ -62,7 +65,7 @@ const searchController = {
 
       searchByElement.push(cardsByElement);
       next(); //can do res.redirect
-      
+
     } catch (err) {
       errorController._500(err, req, res)
     }
