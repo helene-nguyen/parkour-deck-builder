@@ -39,7 +39,7 @@ const deckController = {
             }))
 
             //solution 3 : best for me
-            deck.length < 5 && !cardAlreadyAdded ? (deck.push(oneCard),  req.session.warning = '') : req.session.warning = 'DEJA AJOUTE OU DEJA 5 CARTES';
+            deck.length < 5 && !cardAlreadyAdded ? (deck.push(oneCard), req.session.warning = '') : req.session.warning = 'DEJA AJOUTE OU DEJA 5 CARTES';
 
             //solution 2
             /* if (deck.length < 5 && !cardAlreadyAdded) {
@@ -87,6 +87,8 @@ const deckController = {
             });
             //new array created
             req.session.deck = deleteCard;
+            req.session.warning = '';
+            
             res.redirect('/deck');
 
         } catch (err) {

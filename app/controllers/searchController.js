@@ -23,7 +23,7 @@ const searchController = {
       const elements = await displayElementsOptions();
       const allCards = await getAllCards();
 
-      //? Test another way to write :
+      //another way to write :
       //? const [elements, allCards] = await Promise.all([ displayElementsOptions(), getAllCards()]);
 
       if (!req.session.searchBy) {
@@ -48,11 +48,15 @@ const searchController = {
       const searchByElement = req.session.searchBy;
 
       let element = `${req.query.element}`;
-      let cardsByElement = await getElementCards(element);
+      /* let cardsByElement = await getElementCards(element);
       const allCards = await getAllCards();
-      const cardsISNULL = await getElementCardsISNULL();
+      const cardsISNULL = await getElementCardsISNULL(); */
 
-      element == 'undefined' ? cardsByElement = allCards : (element == 'null' ? cardsByElement = cardsISNULL : cardsByElement);
+      let [cardsByElement, allCards, cardsISNULL] = await
+      Promise.all([getElementCards(element), getAllCards(), getElementCardsISNULL()]);
+
+      element == 'undefined' ? cardsByElement = allCards :
+        (element == 'null' ? cardsByElement = cardsISNULL : cardsByElement);
 
       //also can do this :
       // if(element === 'undefined') {
@@ -84,7 +88,7 @@ const searchController = {
       console.log(level);
 
       searchByLevel.push(cardsByLevel);
-      next();
+      res.redirect('/search');
 
     } catch (err) {
       errorController._500(err, req, res);
@@ -106,7 +110,7 @@ const searchController = {
       console.log(value);
 
       searchByValues.push(cardsByValues);
-      next();
+      res.redirect('/search');
 
 
     } catch (err) {
@@ -115,17 +119,17 @@ const searchController = {
   },
   //^card by name
   async getCardByName(req, res, next) {
-    req.session.searchBy = [];
-    const searchByName = req.session.searchBy;
-
     try {
+
+      req.session.searchBy = [];
+      const searchByName = req.session.searchBy;
       console.log(req.query.name.toLowerCase());
       const nameQuery = req.query.name.toLowerCase();
 
       let cardsByName = await getElementByName(nameQuery);
 
       searchByName.push(cardsByName);
-      next();
+      res.redirect('/search');
 
     } catch (err) {
       errorController._500(err, req, next)
